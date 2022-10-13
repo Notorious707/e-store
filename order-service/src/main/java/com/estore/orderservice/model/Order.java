@@ -32,4 +32,6 @@ public class Order {
     protected Date createDate = new Date();
 
     private PaymentType paymentType;
+
+    private Long paymentId;
 }
