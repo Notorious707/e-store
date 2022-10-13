@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
     private Long accountId;
@@ -34,4 +34,10 @@ public class Order {
     private PaymentType paymentType;
 
     private Long paymentId;
+
+    @Transient
+    private Payment payment;
+
+    @Transient
+    private Double amount;
 }

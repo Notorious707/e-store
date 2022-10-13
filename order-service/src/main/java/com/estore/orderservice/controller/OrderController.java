@@ -32,4 +32,10 @@ public class OrderController {
     public Order create(@RequestBody Order order){
         return orderService.create(order);
     }
+    @PostMapping("/set-payment-id/{id}/{paymentId}")
+    public Order setPaymentId(@PathVariable("id") Long id, @PathVariable("paymentId") Long paymentId){
+        Order order=orderService.findById(id);
+        order.setPaymentId(paymentId);
+        return orderService.create(order);
+    }
 }

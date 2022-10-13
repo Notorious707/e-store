@@ -26,7 +26,7 @@ public class ShippingController {
         return shippingService.get();
     }
     @PutMapping("/{id}")
-    public String update(@PathVariable Long id,
+    public String update(@PathVariable("id") Long id,
             @RequestBody ShippingDTO shippingDTO){
         shippingService.update(id,shippingDTO);
         return "Updated Successfully";

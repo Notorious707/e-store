@@ -1,0 +1,30 @@
+server:
+  port: 8083
+spring:
+  config:
+    import: optional:classpath:.env[.properties]
+  application:
+    name: credit-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/credit_service?createDatabaseIfNotExist=true
+    username: root
+    password: e123123A!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: true
+account_service: http://localhost:8081
+bank_account_service: http://localhost:8082
+credit_service: http://localhost:8083
+order_service: http://localhost:8084
+payment_service: http://localhost:8085
+paypal_service: http://localhost:8086
+product_service: http://localhost:8087
+shipping_service: http://localhost:8088

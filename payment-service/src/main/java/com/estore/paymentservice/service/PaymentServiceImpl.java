@@ -5,10 +5,12 @@ import com.estore.paymentservice.model.PaymentDTO;
 import com.estore.paymentservice.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PaymentServiceImpl implements PaymentService{
 
     @Autowired
@@ -21,9 +23,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public Payment getPayment(Long orderid) {
-        Optional<Payment> optionalPayment = paymentRepository.findById(orderid);
-        if (!optionalPayment.isPresent())
-            return null;
-        return paymentRepository.findById(orderid).get();
+        Optional<Payment> optionalPayment = paymentRepository.findByOrderId(orderid);
+        return optionalPayment.orElse(null);
     }
 }

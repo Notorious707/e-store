@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +19,8 @@ public class Shipping {
     private Long orderId;
     private String courier;
     private State state;
-
+    @Transient
+    private Order order;
     public Shipping(Long orderId, String courier, State state) {
         this.orderId = orderId;
         this.courier = courier;

@@ -10,10 +10,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long productId;
 
     private Long quantity;
+
+    @Transient
+    private Product product;
 }
