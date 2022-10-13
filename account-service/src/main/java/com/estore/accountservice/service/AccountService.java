@@ -5,11 +5,13 @@ import com.estore.accountservice.model.Account;
 import com.estore.accountservice.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AccountService implements IAccountService{
     @Autowired
     AccountRepository accountRepository;
