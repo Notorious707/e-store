@@ -9,7 +9,7 @@ public interface ProductService {
     List<Product> getList();
 
 
-    void save(Product product);
+    void save(ProductDTO productDTO);
 
     Product get(Long id);
 

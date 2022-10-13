@@ -14,8 +14,8 @@ public class ProductControlller {
     @Autowired
     ProductService productService;
     @PostMapping("/save")
-    public String save(@RequestBody Product product){
-        productService.save(product);
+    public String save(@RequestBody ProductDTO productDTO){
+        productService.save(productDTO);
         return "Product is saved!";
     }
     @GetMapping("/{id}")

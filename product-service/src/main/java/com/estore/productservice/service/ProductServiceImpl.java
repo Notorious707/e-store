@@ -11,13 +11,14 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService{
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
     @Override
     public List<Product> getList() {
         return productRepository.findAll();
     }
     @Override
-    public void save(Product product) {
+    public void save(ProductDTO productDTO) {
+        Product product = new Product(productDTO.getName(),productDTO.getVendor(),productDTO.getCategory(), productDTO.getPrice(),productDTO.getUnit(),productDTO.getQuantity());
         productRepository.save(product);
     }
 
@@ -38,6 +39,8 @@ public class ProductServiceImpl implements ProductService{
         product.setPrice(productDTO.getPrice());
         product.setVendor(productDTO.getVendor());
         product.setCategory(productDTO.getCategory());
+        product.setUnit(productDTO.getUnit());
+        product.setQuantity(productDTO.getQuantity());
         productRepository.save(product);
 
     }

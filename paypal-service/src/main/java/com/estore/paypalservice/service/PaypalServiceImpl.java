@@ -1,6 +1,6 @@
 package com.estore.paypalservice.service;
 
-import com.estore.paypalservice.Model.PaymentDTO;
+import com.estore.paypalservice.model.PaymentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 @Slf4j

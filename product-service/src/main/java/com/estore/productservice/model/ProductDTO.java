@@ -12,4 +12,6 @@ public class ProductDTO {
     private String vendor;
     private String category;
     private Double price;
+    private String unit;
+    private Long quantity;
 }
