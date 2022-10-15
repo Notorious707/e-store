@@ -1,8 +1,7 @@
 server:
   port: 8082
 spring:
-  config:
-    import: optional:classpath:.env[.properties]
+
   application:
     name: bank-account-service
 account_service: http://localhost:8081

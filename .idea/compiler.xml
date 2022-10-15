@@ -10,9 +10,10 @@
         <module name="payment-service" />
         <module name="credit-service" />
         <module name="paypal-service" />
+        <module name="gateway-service" />
         <module name="product-service" />
-        <module name="order-service" />
         <module name="bank-account-service" />
+        <module name="order-service" />
         <module name="account-service" />
         <module name="shipping-service" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="account-service" target="17" />
       <module name="bank-account-service" target="17" />
       <module name="credit-service" target="17" />
+      <module name="gateway-service" target="17" />
       <module name="order-service" target="17" />
       <module name="payment-service" target="17" />
       <module name="paypal-service" target="17" />
@@ -34,6 +36,7 @@
       <module name="account-service" options="-parameters" />
       <module name="bank-account-service" options="-parameters" />
       <module name="credit-service" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="paypal-service" options="-parameters" />

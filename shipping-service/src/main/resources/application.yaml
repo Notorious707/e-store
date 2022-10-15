@@ -1,14 +1,13 @@
 server:
   port: 8088
 spring:
-  config:
-    import: optional:classpath:.env[.properties]
+
   application:
     name: shipping-service
   datasource:
     url: jdbc:mysql://localhost:3306/shipping_service?createDatabaseIfNotExist=true
     username: root
-    password: e123123A!
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

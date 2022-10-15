@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/bank-account-service/bank-account-service.iml" filepath="$PROJECT_DIR$/bank-account-service/bank-account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/credit-service/credit-service.iml" filepath="$PROJECT_DIR$/credit-service/credit-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/e-store.iml" filepath="$PROJECT_DIR$/.idea/e-store.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/payment-service/payment-service.iml" filepath="$PROJECT_DIR$/payment-service/payment-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/paypal-service/paypal-service.iml" filepath="$PROJECT_DIR$/paypal-service/paypal-service.iml" />
