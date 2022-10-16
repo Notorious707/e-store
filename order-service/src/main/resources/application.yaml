@@ -1,8 +1,6 @@
 server:
   port: 8084
-spring:
-  config:
-    import: optional:classpath:.env[.properties]
+spring:  
   application:
     name: order-service
   datasource:

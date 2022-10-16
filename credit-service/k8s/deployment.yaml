@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account-service-deployment
+  name: credit-service-deployment
   labels:
-    app: account
+    app: credit
 spec:
   selector:
     matchLabels:
-      app: account
+      app: credit
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        app: credit
     spec:
       containers:
-        - name: account
-          image: webper2606/swa-project2:account-service
+        - name: credit
+          image: webper2606/swa-project2:credit-service
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -26,73 +26,52 @@ spec:
             - name: ACCOUNT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: account_service
             - name: BANK_ACCOUNT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: bank_account_service
             - name: CREDIT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: credit_service
             - name: ORDER_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: order_service
             - name: PAYMENT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: payment_service
             - name: PAYPAL_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: paypal_service
             - name: PRODUCT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: product_service
             - name: SHIPPING_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: credit-config
                   key: shipping_service
-            - name: DB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: account-config
-                  key: dbUrl
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: productdb-config
-                  key: dbName
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: productdb-secrets
-                  key: username
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: productdb-secrets
-                  key: password
-            - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://$(DB_URL)/$(DB_NAME)?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false"
+
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: account-service
+  name: credit-service
 spec:
   selector:
-    app: account
+    app: credit
   type: NodePort
   ports:
     - protocol: TCP
@@ -102,9 +81,8 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: account-config
+  name: credit-config
 data:
-  dbUrl: product-db-service
   account_service: account-service
   bank_account_service: bank-account-service
   credit_service: credit-service

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account-service-deployment
+  name: order-service-deployment
   labels:
-    app: account
+    app: order
 spec:
   selector:
     matchLabels:
-      app: account
+      app: order
   replicas: 1
   template:
     metadata:
       labels:
-        app: account
+        app: order
     spec:
       containers:
-        - name: account
-          image: webper2606/swa-project2:account-service
+        - name: order
+          image: webper2606/swa-project2:order-service
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -26,47 +26,47 @@ spec:
             - name: ACCOUNT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: account_service
             - name: BANK_ACCOUNT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: bank_account_service
             - name: CREDIT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: credit_service
             - name: ORDER_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: order_service
             - name: PAYMENT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: payment_service
             - name: PAYPAL_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: paypal_service
             - name: PRODUCT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: product_service
             - name: SHIPPING_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: shipping_service
             - name: DB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: account-config
+                  name: order-config
                   key: dbUrl
             - name: DB_NAME
               valueFrom:
@@ -89,10 +89,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: account-service
+  name: order-service
 spec:
   selector:
-    app: account
+    app: order
   type: NodePort
   ports:
     - protocol: TCP
@@ -102,7 +102,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: account-config
+  name: order-config
 data:
   dbUrl: product-db-service
   account_service: account-service

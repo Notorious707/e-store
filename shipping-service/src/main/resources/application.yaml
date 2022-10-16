@@ -1,8 +1,6 @@
 server:
   port: 8088
-spring:
-  config:
-    import: optional:classpath:.env[.properties]
+spring:  
   application:
     name: shipping-service
   datasource:

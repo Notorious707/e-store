@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: product-service-db-volume
+  labels:
+    app: productdb-volume
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-db-deployment
+  labels:
+    app: productdb
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: productdb
+      tier: database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: productdb
+        tier: database
+    spec:
+      containers:
+        - image: mysql
+          name: productdb
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: productdb-secrets
+                  key: password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: productdb-config
+                  key: dbName
+          ports:
+            - containerPort: 3306
+              name: productdb
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: product-service-db-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-db-service
+spec:
+  type: NodePort
+  selector:
+    app: productdb
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: productdb-config
+data:
+  dbName: productdb
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: productdb-secrets
+data:
+  username: cm9vdA==
+  password: c2EyMDIy
