@@ -1,7 +1,8 @@
 # e-store
 ## Docker build image commands
 ```
-docker build -t webper2606/swa-project2:bank-account-service ./bank-account-service<br/>
+docker build -t webper2606/swa-project2:account-service ./account-service
+docker build -t webper2606/swa-project2:bank-account-service ./bank-account-service
 docker build -t webper2606/swa-project2:credit-service  ./credit-service
 docker build -t webper2606/swa-project2:order-service ./order-service
 docker build -t webper2606/swa-project2:payment-service ./payment-service
@@ -11,6 +12,7 @@ docker build -t webper2606/swa-project2:shipping-service ./shipping-service
 ```
 ## Docker push image commands
 ```
+docker push webper2606/swa-project2:account-service
 docker push webper2606/swa-project2:bank-account-service
 docker push webper2606/swa-project2:credit-service 
 docker push webper2606/swa-project2:order-service

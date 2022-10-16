@@ -23,46 +23,46 @@ spec:
           env:
             - name: SERVER_PORT
               value: "8080"
-            - name: ACCOUNT_SERVICE
+            - name: accountservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: account_service
-            - name: BANK_ACCOUNT_SERVICE
+                  key: accountservice
+            - name: bankaccountservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: bank_account_service
-            - name: CREDIT_SERVICE
+                  key: bankaccountservice
+            - name: creditservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: credit_service
-            - name: ORDER_SERVICE
+                  key: creditservice
+            - name: orderservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: order_service
-            - name: PAYMENT_SERVICE
+                  key: orderservice
+            - name: paymentservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: payment_service
-            - name: PAYPAL_SERVICE
+                  key: paymentservice
+            - name: paypalservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: paypal_service
-            - name: PRODUCT_SERVICE
+                  key: paypalservice
+            - name: productservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: product_service
-            - name: SHIPPING_SERVICE
+                  key: productservice
+            - name: shippingservice
               valueFrom:
                 configMapKeyRef:
                   name: bank-account-config
-                  key: shipping_service
+                  key: shippingservice
 ---
 kind: Service
 apiVersion: v1
@@ -82,11 +82,11 @@ kind: ConfigMap
 metadata:
   name: bank-account-config
 data:
-  account_service: account-service
-  bank_account_service: bank-account-service
-  credit_service: credit-service
-  order_service: order-service
-  payment_service: payment-service
-  paypal_service: paypal-service
-  product_service: product-service
-  shipping_service: shipping-service
+  accountservice: http://account-service:8080
+  bankaccountservice: http://bank-account-service:8080
+  creditservice: http://credit-service:8080
+  orderservice: http://order-service:8080
+  paymentservice: http://payment-service:8080
+  paypalservice: http://paypal-service:8080
+  productservice: http://product-service:8080
+  shippingservice: http://shipping-service:8080

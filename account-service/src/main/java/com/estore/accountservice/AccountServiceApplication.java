@@ -9,21 +9,21 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @SpringBootApplication
 public class AccountServiceApplication {
-	@Value("${account_service}")
+	@Value("${accountservice}")
 	private String ACCOUNT_SERVICE_BASE_URL;
-	@Value("${bank_account_service}")
+	@Value("${bankaccountservice}")
 	private String BANK_ACCOUNT_SERVICE_BASE_URL;
-	@Value("${credit_service}")
+	@Value("${creditservice}")
 	private String CREDIT_SERVICE_BASE_URL;
-	@Value("${order_service}")
+	@Value("${orderservice}")
 	private String ORDER_SERVICE_BASE_URL;
-	@Value("${payment_service}")
+	@Value("${paymentservice}")
 	private String PAYMENT_SERVICE_BASE_URL;
-	@Value("${paypal_service}")
+	@Value("${paypalservice}")
 	private String PAYPAL_SERVICE_BASE_URL;
-	@Value("${product_service}")
+	@Value("${productservice}")
 	private String PRODUCT_SERVICE_BASE_URL;
-	@Value("${shipping_service}")
+	@Value("${shippingservice}")
 	private String SHIPPING_SERVICE_BASE_URL;
 	public static void main(String[] args) {
 		SpringApplication.run(AccountServiceApplication.class, args);

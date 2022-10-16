@@ -3,11 +3,11 @@ server:
 spring:  
   application:
     name: credit-service
-account_service: http://localhost:8081
-bank_account_service: http://localhost:8082
-credit_service: http://localhost:8083
-order_service: http://localhost:8084
-payment_service: http://localhost:8085
-paypal_service: http://localhost:8086
-product_service: http://localhost:8087
-shipping_service: http://localhost:8088
+accountservice: http://localhost:8081
+bankaccountservice: http://localhost:8082
+creditservice: http://localhost:8083
+orderservice: http://localhost:8084
+paymentservice: http://localhost:8085
+paypalservice: http://localhost:8086
+productservice: http://localhost:8087
+shippingservice: http://localhost:8088
