@@ -21,10 +21,10 @@ public class BankAccountServiceImpl implements BankAccountService{
         }
         if(paymentDTO.getAmount() == null || paymentDTO.getOrderId() == null){
             log.info("Payment is not made by Bank Account service");
-            return new TransactionResponse("Payment is unsuccessful by Bank Account service", "APPROVED");
+            return new TransactionResponse("Payment is unsuccessful by Bank Account service", "REJECTED");
         }else
             log.info("Payment is made by Bank Account service");
-        return new TransactionResponse("Payment is made by Bank Account service", "REJECTED");
+        return new TransactionResponse("Payment is made by Bank Account service", "APPROVED");
 
     }
 

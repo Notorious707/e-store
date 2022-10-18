@@ -1,0 +1,587 @@
+{
+	"info": {
+		"_postman_id": "3036cf6a-4906-4143-93e2-29b3e8c9907b",
+		"name": "SA-project2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10267070"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sophia@webper.uz\",\n    \"firstName\":\"John\",\n    \"lastName\":\"Doe\",\n    \"shippingAddress\":{\n        \"country\":\"USA\",\n        \"state\":\"Iowa\",\n        \"city\":\"Des Moines\",\n        \"postalCode\":\"52557\",\n        \"streetAddress\":\"1000 N 4th Street\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ABU}}/accounts/update/2",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"accounts",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Payment Method",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"John\",\n    \"lastName\":\"Doe\",\n    \"cvv\":\"123\",\n    \"cardNumber\":\"1234 1234 1234 1234\",\n    \"expireDate\":\"2022-01-01\",\n    \"type\":\"credit-card\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ABU}}/accounts/add-payment-method/1",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"accounts",
+								"add-payment-method",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sophia@gmail.com\",\n    \"password\":\"pass1234\",\n    \"shippingAddress\":{\n        \"country\":\"USA\",\n        \"state\":\"Iowa\",\n        \"city\":\"Fairfield\",\n        \"postalCode\":\"52557\",\n        \"streetAddress\":\"1000 N 4th Street\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ABU}}/auth/signup",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"diana@gmail.com\",\n    \"password\":\"pass1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ABU}}/auth/signin",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ABU}}/accounts",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ABU}}/accounts/2",
+							"host": [
+								"{{ABU}}"
+							],
+							"path": [
+								"accounts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\":1,\n    \"items\":[\n        {\n            \"id\":2,\n            \"productId\":2,\n            \"quantity\":10\n        },\n        {\n            \"productId\":1,\n            \"quantity\":10\n        }\n    ],\n    \"shippingAddress\":{\n        \"country\":\"USA\",\n        \"state\":\"Iowa\",\n        \"city\":\"Fairfield\",\n        \"postalCode\":\"52557\",\n        \"streetAddress\":\"1000 N 4th Street\"\n    },\n    \"paymentType\":\"Credit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{OBU}}/orders/1",
+							"host": [
+								"{{OBU}}"
+							],
+							"path": [
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\":1,\n    \"items\":[\n        {\n            \"productId\":1,\n            \"quantity\":10\n        }\n    ],\n    \"shippingAddress\":{\n        \"country\":\"USA\",\n        \"state\":\"Iowa\",\n        \"city\":\"Fairfield\",\n        \"postalCode\":\"52557\",\n        \"streetAddress\":\"1000 N 4th Street\"\n    },\n    \"paymentType\":\"Credit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{OBU}}/orders",
+							"host": [
+								"{{OBU}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{OBU}}/orders",
+							"host": [
+								"{{OBU}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{OBU}}/orders/4",
+							"host": [
+								"{{OBU}}"
+							],
+							"path": [
+								"orders",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product-Service",
+			"item": [
+				{
+					"name": "save a product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Test2\",\n    \"vendor\":\"Mira Ltd\",\n    \"category\":\"Updated category\",\n    \"price\":\"15.99\",\n    \"unit\":\"number\",\n    \"quantity\":100\n  \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PTURL}}/product/save",
+							"host": [
+								"{{PTURL}}"
+							],
+							"path": [
+								"product",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get list of products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PTURL}}/product/list",
+							"host": [
+								"{{PTURL}}"
+							],
+							"path": [
+								"product",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PTURL}}/product/1",
+							"host": [
+								"{{PTURL}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Swell\",\n    \"vendor\":\"Swell Ltd\",\n    \"category\":\"Water Bottle\",\n    \"price\":\"25.99\",\n    \"unit\":\"number\",\n    \"quantity\":1120\n    \n  \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PTURL}}/product/update/1",
+							"host": [
+								"{{PTURL}}"
+							],
+							"path": [
+								"product",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Paypal-service",
+					"item": [
+						{
+							"name": "Pay by PayPal",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\":1,\n    \"amount\":131.34\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PPURL}}/paypal/pay",
+									"host": [
+										"{{PPURL}}"
+									],
+									"path": [
+										"paypal",
+										"pay"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bank-account-service",
+					"item": [
+						{
+							"name": "Pay by Bank Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\":1313,\n    \"amount\":131.34\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BAURL}}/bankaccount/pay",
+									"host": [
+										"{{BAURL}}"
+									],
+									"path": [
+										"bankaccount",
+										"pay"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Credit-service",
+					"item": [
+						{
+							"name": "Pay by Credit",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\":1313,\n    \"amount\":131.34\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{CURL}}/credit/pay",
+									"host": [
+										"{{CURL}}"
+									],
+									"path": [
+										"credit",
+										"pay"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payment-service",
+					"item": [
+						{
+							"name": "Make payment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderId\":4,\n    \"amount\": 1232.43,\n    \"paymentType\":\"Paypal\"\n}    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PURL}}/payment/",
+									"host": [
+										"{{PURL}}"
+									],
+									"path": [
+										"payment",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get payment by orderId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{PURL}}/payment/getpayment/14214",
+									"host": [
+										"{{PURL}}"
+									],
+									"path": [
+										"payment",
+										"getpayment",
+										"14214"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3BoaWFAZ21haWwuY29tIiwiaWF0IjoxNjY2MDc4NDE4LCJleHAiOjE2NjYxNDkxMTh9.lMXRnLb8rJQn7kmyyZW4egDNM1jWvpoaobrGRQXL5r4HAyNWv7k9v5PWCAKLHmTsOJpJnFndKs-bOLhG4_h1VQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ABU",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "OBU",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "BAURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "CURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "PURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "PPURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "PTURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "SHURL",
+			"value": "http://a.uz",
+			"type": "string"
+		},
+		{
+			"key": "SCURL",
+			"value": "http://a.uz",
+			"type": "string"
+		}
+	]
+}

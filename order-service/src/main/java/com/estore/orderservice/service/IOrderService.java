@@ -17,7 +17,7 @@ public interface IOrderService {
 
     ResponseEntity<OrderResponse> create(OrderRequest orderRequest, String authHeader);
 
-    ResponseEntity<OrderResponse> setPaymentId(Long id, OrderRequest orderRequest, String authorization);
+    ResponseEntity<OrderResponse> setPaymentId(Long id, Long paymentId, String authorization);
 
     ResponseEntity<OrderResponse> update(Long id, Order order, String authorization);
 }

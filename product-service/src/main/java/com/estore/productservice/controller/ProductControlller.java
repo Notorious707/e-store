@@ -28,7 +28,8 @@ public class ProductControlller {
     }
 
     @GetMapping("/list")
-    public List<Product> getList(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader, HttpServletResponse httpServletResponse) throws IOException{
+    public List<Product> getList(@RequestHeader (HttpHeaders.AUTHORIZATION) String authHeader, HttpServletResponse httpServletResponse) throws IOException{
+        System.out.println("ME"+authHeader);
         return productService.getList(authHeader,httpServletResponse);
     }
     @DeleteMapping ("/delete/{id}")

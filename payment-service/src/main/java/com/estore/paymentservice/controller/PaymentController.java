@@ -39,14 +39,4 @@ public class PaymentController {
     public String makePayment(@RequestBody PaymentDTO paymentDTO, @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader, HttpServletResponse httpServletResponse) throws IOException {
         return paymentService.makePayment(paymentDTO, authHeader,httpServletResponse);
     }
-//    @GetMapping("/getpayment/{orderid}")
-//    public ResponseEntity<Payment> getPayment(@PathVariable Long orderid){
-//        Payment payment = paymentService.getPayment(orderid);
-//        if(payment!=null){
-//            return new ResponseEntity<>(payment, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//
-//    }
-
 }

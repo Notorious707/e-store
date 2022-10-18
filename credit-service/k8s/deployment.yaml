@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-service-deployment
+  labels:
+    app: credit
+spec:
+  selector:
+    matchLabels:
+      app: credit
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: credit
+    spec:
+      containers:
+        - name: credit
+          image: webper2606/swa-project2:credit-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: accountservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: accountservice
+            - name: bankaccountservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: bankaccountservice
+            - name: creditservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: creditservice
+            - name: orderservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: orderservice
+            - name: paymentservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: paymentservice
+            - name: paypalservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: paypalservice
+            - name: productservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: productservice
+            - name: shippingservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: shippingservice
+            - name: authservice
+              valueFrom:
+                configMapKeyRef:
+                  name: credit-config
+                  key: accountservice
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: credit-service
+spec:
+  selector:
+    app: credit
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: credit-config
+data:
+  accountservice: http://account-service:8080
+  bankaccountservice: http://bank-account-service:8080
+  creditservice: http://credit-service:8080
+  orderservice: http://order-service:8080
+  paymentservice: http://payment-service:8080
+  paypalservice: http://paypal-service:8080
+  productservice: http://product-service:8080
+  shippingservice: http://shipping-service:8080

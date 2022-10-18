@@ -4,8 +4,7 @@ import com.estore.orderservice.exception.NotFoundException;
 import com.estore.orderservice.model.*;
 import com.estore.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -36,21 +35,20 @@ public class OrderService implements IOrderService{
         ValidateDTO  validateDTO = tokenService.validateToken(authHeader);
         if (validateDTO == null || !validateDTO.isSuccess()) {httpServletResponse.sendError(401,"UNAUTHORIZED");};
         Order order=orderRepository.findById(id).orElseThrow(()->new NotFoundException("Order not found with this ID!"));
-        return mapProducts(order);
+        return mapProducts(order, authHeader);
     }
 
-    private Order mapProducts(Order order) {
+    private Order mapProducts(Order order,String authorizationHeader) {
         AtomicReference<Double> amount= new AtomicReference<>(0.0);
-        if(order.getPaymentId()!=null){
-            Payment payment=paymentServiceApi.getForObject("/payment/getpayment/"+order.getId(), Payment.class);
-            order.setPayment(payment);
-        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.AUTHORIZATION, authorizationHeader);
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         List<OrderItem> orderItems=order.getItems();
         orderItems.stream().map(i->{
-            Product product=productServiceApi.getForObject("/product/"+i.getProductId(), Product.class);
-            amount.updateAndGet(v -> v + product.getPrice() * i.getQuantity());
+            ResponseEntity<Product> product=productServiceApi.exchange("/product/"+i.getProductId(), HttpMethod.GET, requestEntity,Product.class);
+            amount.updateAndGet(v -> v + product.getBody().getPrice() * i.getQuantity());
             order.setAmount(amount.get());
-            i.setProduct(product);
+            i.setProduct(product.getBody());
             return i;
         }).collect(Collectors.toList());
         return order;
@@ -63,7 +61,7 @@ public class OrderService implements IOrderService{
 
         List<Order> orders=orderRepository.findAll();
         orders.stream().map(order->{
-            return mapProducts(order);
+            return mapProducts(order, authHeader);
         }).collect(Collectors.toList());
         return orderRepository.findAll();
     }
@@ -86,8 +84,8 @@ public class OrderService implements IOrderService{
         ValidateDTO validateDTO = tokenService.validateToken(authHeader);
         if (validateDTO == null || !validateDTO.isSuccess()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-        Order order = new Order(orderRequest.getAccountId(),orderRequest.getItems(),orderRequest.getShippingAddress(),orderRequest.getStatus(),orderRequest.getPaymentType(),orderRequest.getPaymentId(),orderRequest.getPayment(),orderRequest.getAmount());
-        orderRequest.setStatus(OrderState.CREATED);
+        Order order = new Order(orderRequest.getAccountId(),orderRequest.getItems(),orderRequest.getShippingAddress(),orderRequest.getPaymentType(),orderRequest.getPaymentId(),orderRequest.getPayment(),orderRequest.getAmount());
+        order.setStatus(OrderState.CREATED);
         orderRepository.save(order);
 //        order.setStatus(OrderState.SHIPPED);
         OrderResponse orderResponse = new OrderResponse("Order is created!","CREATED");
@@ -97,12 +95,13 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public ResponseEntity<OrderResponse> setPaymentId(Long id, OrderRequest orderRequest, String authHeader) {
+    public ResponseEntity<OrderResponse> setPaymentId(Long id, Long paymentId,String authHeader) {
         ValidateDTO validateDTO = tokenService.validateToken(authHeader);
         if (validateDTO == null || !validateDTO.isSuccess()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-        Order order = orderRepository.findById(id).get();
-        order.setPaymentId(orderRequest.getPaymentId());
+        Order order = orderRepository.findById(id).orElseThrow(()->new NotFoundException("Order with this id not found"));
+        order.setPaymentId(paymentId);
+        order.setStatus(OrderState.PAID);
         orderRepository.save(order);
         PaymentResponse paymentResponse = new PaymentResponse();
         OrderResponse response = new OrderResponse("Updated", paymentResponse.getStatus());

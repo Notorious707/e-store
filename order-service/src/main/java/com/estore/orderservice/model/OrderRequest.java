@@ -20,8 +20,6 @@ public class OrderRequest {
 
     private Address shippingAddress;
 
-    private OrderState status;
-
     private PaymentType paymentType;
 
     private Long paymentId;

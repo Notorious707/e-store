@@ -37,19 +37,14 @@ public class Order {
     private Long paymentId;
 
     @Transient
-    private Payment payment;
-
-    @Transient
     private Double amount;
 
-    public Order(Long accountId, List<OrderItem> items, Address shippingAddress, OrderState status, PaymentType paymentType, Long paymentId, Payment payment, Double amount) {
+    public Order(Long accountId, List<OrderItem> items, Address shippingAddress, PaymentType paymentType, Long paymentId, Payment payment, Double amount) {
         this.accountId = accountId;
         this.items = items;
         this.shippingAddress = shippingAddress;
-        this.status = status;
         this.paymentType = paymentType;
         this.paymentId = paymentId;
-        this.payment = payment;
         this.amount = amount;
     }
 }

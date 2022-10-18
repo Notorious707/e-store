@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service-deployment
+  labels:
+    app: gateway
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: webper2606/swa-project2:gateway-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED
+              value: "true"
+            - name: accountservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: accountservice
+            - name: bankaccountservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: bankaccountservice
+            - name: orderservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: orderservice
+            - name: paymentservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: paymentservice
+            - name: paypalservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: paypalservice
+            - name: productservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: productservice
+            - name: shippingservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: shippingservice
+            - name: authservice
+              valueFrom:
+                configMapKeyRef:
+                  name: gateway-config
+                  key: accountservice
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gateway-service
+spec:
+  selector:
+    app: gateway
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+data:
+  accountservice: http://account-service:8080
+  bankaccountservice: http://bank-account-service:8080
+  orderservice: http://order-service:8080
+  paymentservice: http://payment-service:8080
+  paypalservice: http://paypal-service:8080
+  productservice: http://product-service:8080
+  shippingservice: http://shipping-service:8080

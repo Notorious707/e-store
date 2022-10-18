@@ -41,9 +41,6 @@ public class OrderController {
     }
     @PostMapping("/set-payment-id/{id}/{paymentId}")
     public ResponseEntity<OrderResponse> setPaymentId(@PathVariable("id") Long id, @PathVariable("paymentId") Long paymentId,@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
-        OrderRequest orderRequest = new OrderRequest();
-        orderRequest.setPaymentId(paymentId);
-
-        return orderService.setPaymentId(id,orderRequest,authorization);
+        return orderService.setPaymentId(id,paymentId,authorization);
     }
 }

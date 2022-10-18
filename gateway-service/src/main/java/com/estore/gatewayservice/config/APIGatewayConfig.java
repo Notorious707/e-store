@@ -9,26 +9,26 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class APIGatewayConfig {
-    @Value("${account_service}")
+    @Value("${accountservice}")
     private String account_service;
-    @Value("${bank_account_service}")
+    @Value("${bankaccountservice}")
     private String bank_account_service;
-    @Value("${credit_service}")
+    @Value("${creditservice}")
     private String credit_service;
-    @Value("${order_service}")
+    @Value("${orderservice}")
     private String order_service;
-    @Value("${payment_service}")
+    @Value("${paymentservice}")
     private String payment_service;
-    @Value("${paypal_service}")
+    @Value("${paypalservice}")
     private String paypal_service;
-    @Value("${product_service}")
+    @Value("${productservice}")
     private String product_service;
-    @Value("${shipping_service}")
-    private String shipping_service;
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder){
         return builder.routes()
                 .route("account-service",r->r.path("/accounts/**")
+                        .uri(account_service))
+                .route("auth-service",r->r.path("/auth/**")
                         .uri(account_service))
                 .route("bank-account-service",r->r.path("/bankaccount/**")
                         .uri(bank_account_service))
@@ -42,8 +42,6 @@ public class APIGatewayConfig {
                         .uri(paypal_service))
                 .route("product-service",r->r.path("/product/**")
                         .uri(product_service))
-                .route("shipping-service",r->r.path("/shipping/**")
-                        .uri(shipping_service))
                 .build();
     }
 }

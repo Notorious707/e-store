@@ -1,29 +1,35 @@
 server:
   port: 8085
+  error:
+    include-binding-errors: always
+    include-message: always
 spring:
-
   application:
     name: payment-service
   datasource:
     url: jdbc:mysql://localhost:3306/payment_service?createDatabaseIfNotExist=true
     username: root
-    password: password
+    password: e123123A!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: true
-account_service: http://localhost:8081
-bank_account_service: http://localhost:8082
-credit_service: http://localhost:8083
-order_service: http://localhost:8084
-payment_service: http://localhost:8085
-paypal_service: http://localhost:8086
-product_service: http://localhost:8087
-shipping_service: http://localhost:8088
+accountservice: http://localhost:8081
+bankaccountservice: http://localhost:8082
+creditservice: http://localhost:8083
+orderservice: http://localhost:8084
+paymentservice: http://localhost:8085
+paypalservice: http://localhost:8086
+productservice: http://localhost:8087
+shippingservice: http://localhost:8088
+authservice: http://localhost:8090
+app:
+  jwt:
+    secret: AAAATQAAAHkAAABTAAAAZQAAAGMAAAByAAAAZQAAAHQAAABLAAAAZQAAAHk=

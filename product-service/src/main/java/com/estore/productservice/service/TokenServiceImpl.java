@@ -1,11 +1,7 @@
 package com.estore.productservice.service;
 
-import com.estore.productservice.entity.Product;
 import com.estore.productservice.model.ProductResponse;
-import com.estore.productservice.model.ValidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,10 +14,7 @@ public class TokenServiceImpl implements TokenService {
 
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Value("${account_service}")
-    private String authSvcUrl;
+    private RestTemplate authServiceApi;
 
     public ProductResponse validateToken(String authorizationHeader) {
         HttpHeaders headers = new HttpHeaders();
@@ -29,7 +22,7 @@ public class TokenServiceImpl implements TokenService {
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<ProductResponse> response = restTemplate.exchange(authSvcUrl + "/validate", HttpMethod.GET, requestEntity, ProductResponse.class);
+        ResponseEntity<ProductResponse> response = authServiceApi.exchange("/auth/validate", HttpMethod.GET, requestEntity, ProductResponse.class);
         return response.getBody();
     }
 

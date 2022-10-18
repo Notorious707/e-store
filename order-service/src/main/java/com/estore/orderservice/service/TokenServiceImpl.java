@@ -15,10 +15,7 @@ import org.springframework.web.client.RestTemplate;
 public class TokenServiceImpl implements TokenService {
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Value("${account_service}")
-    private String authSvcUrl;
+    private RestTemplate authServiceApi;
 
     public ValidateDTO validateToken(String authorizationHeader) {
         HttpHeaders headers = new HttpHeaders();
@@ -26,7 +23,7 @@ public class TokenServiceImpl implements TokenService {
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<ValidateDTO> response = restTemplate.exchange(authSvcUrl + "/auth/validate", HttpMethod.GET, requestEntity, ValidateDTO.class);
+        ResponseEntity<ValidateDTO> response = authServiceApi.exchange("/auth/validate", HttpMethod.GET, requestEntity, ValidateDTO.class);
         return response.getBody();
     }
 

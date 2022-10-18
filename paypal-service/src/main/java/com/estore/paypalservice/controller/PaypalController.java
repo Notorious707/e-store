@@ -1,6 +1,6 @@
 package com.estore.paypalservice.controller;
 
-import com.estore.paypalservice.Model.TransactionResponse;
+import com.estore.paypalservice.model.TransactionResponse;
 import com.estore.paypalservice.model.PaymentDTO;
 import com.estore.paypalservice.service.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;

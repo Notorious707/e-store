@@ -18,11 +18,11 @@ public class CreditServiceImpl implements CreditService{
             return new TransactionResponse("Invalid authorization", "UNAUTHORIZED");
         }
         if(creditDTO.getAmount() == null || creditDTO.getOrderId() == null){
-            log.info("Payment is not made by Bank Account service");
-            return new TransactionResponse("Payment is unsuccessful by Bank Account service", "APPROVED");
+            log.info("Payment is not made by Credit service");
+            return new TransactionResponse("Payment is unsuccessful by Credit service", "REJECTED");
         }else
-            log.info("Payment is made by Bank Account service");
-        return new TransactionResponse("Payment is made by Bank Account service", "REJECTED");
+            log.info("Payment is made by Credit service");
+        return new TransactionResponse("Payment is made by Credit service", "APPROVED");
 
     }
 }
