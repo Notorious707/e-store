@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Service
 public class CreditServiceImpl implements CreditService{
 
-    @Value("${app.jwt.jwtSecret}")
+    @Value("${rest.api-secret}")
     private String secret;
     @Override
     public TransactionResponse makePayment(CreditDTO creditDTO, String authHeader) {

@@ -36,25 +36,10 @@ public class OrderService implements IOrderService{
         ValidateDTO  validateDTO = tokenService.validateToken(authHeader);
         if (validateDTO == null || !validateDTO.isSuccess()) {httpServletResponse.sendError(401,"UNAUTHORIZED");};
         Order order=orderRepository.findById(id).orElseThrow(()->new NotFoundException("Order not found with this ID!"));
-        return mapProducts(order);
-    }
-
-    private Order mapProducts(Order order) {
-        AtomicReference<Double> amount= new AtomicReference<>(0.0);
-        if(order.getPaymentId()!=null){
-            Payment payment=paymentServiceApi.getForObject("/payment/getpayment/"+order.getId(), Payment.class);
-            order.setPayment(payment);
-        }
-        List<OrderItem> orderItems=order.getItems();
-        orderItems.stream().map(i->{
-            Product product=productServiceApi.getForObject("/product/"+i.getProductId(), Product.class);
-            amount.updateAndGet(v -> v + product.getPrice() * i.getQuantity());
-            order.setAmount(amount.get());
-            i.setProduct(product);
-            return i;
-        }).collect(Collectors.toList());
         return order;
     }
+
+
 
     @Override
     public List<Order> findAll(String authHeader, HttpServletResponse response) throws IOException {
@@ -62,10 +47,7 @@ public class OrderService implements IOrderService{
         if (validateDTO == null || !validateDTO.isSuccess()){ response.sendError(401,"UNAUTHORIZED"); }
 
         List<Order> orders=orderRepository.findAll();
-        orders.stream().map(order->{
-            return mapProducts(order);
-        }).collect(Collectors.toList());
-        return orderRepository.findAll();
+        return orders;
     }
 
     @Override

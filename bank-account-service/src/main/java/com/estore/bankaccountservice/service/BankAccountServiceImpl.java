@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Slf4j
 @Service
 public class BankAccountServiceImpl implements BankAccountService{
-    @Value("${app.jwt.jwtSecret}")
+    @Value("${rest.api-secret}")
     private String secret;
     @Override
     public TransactionResponse makePayment(BankAccountDTO paymentDTO, String authHeader) {

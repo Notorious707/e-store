@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Slf4j
 @Service
 public class PaypalServiceImpl implements PaypalService{
-    @Value("${app.jwt.jwtSecret}")
+    @Value("${rest.api-secret}")
     private String secret;
 
     @Override

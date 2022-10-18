@@ -2,8 +2,6 @@ package com.estore.accountservice.service;
 
 import com.estore.accountservice.exception.NotFoundException;
 import com.estore.accountservice.model.Account;
-import com.estore.accountservice.model.Address;
-import com.estore.accountservice.model.PaymentMethod;
 import com.estore.accountservice.model.ValidateResponse;
 import com.estore.accountservice.model.roles.ERole;
 import com.estore.accountservice.model.roles.Role;
@@ -150,29 +148,20 @@ public class AccountService implements IAccountService{
     @Override
     public ResponseEntity<ValidateResponse> validate(String authorizationHeader) {
         String token = null;
-        JwtUtils jwtUtils1 = new JwtUtils();
-
-
-        if(jwtUtils1.validateJwtToken(authorizationHeader)){
-            ValidateResponse response = new ValidateResponse(true,"Validated!");
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }else {
-            ValidateResponse response = new ValidateResponse(false,"Not Validated!");
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }
-
+        try {
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer")){
             token = authorizationHeader.substring(7);
-//            try{
-//            Claims claims = jwtUtils.getClaims(token);
-//            if(claims!=null){
-//                ValidateResponse validateResponse = new ValidateResponse(true,"Validated!");
-//                return new ResponseEntity<>(validateResponse,HttpStatus.OK);
-//            }
-//            }catch(Exception ignored){}
-//        }
-//        ValidateResponse response = new ValidateResponse(false,"Not Validated!");
-//        return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
+
+            Claims claims = jwtUtils.getClaims(token);
+            if(claims!=null){
+                ValidateResponse validateResponse = new ValidateResponse(true,"Validated!");
+                return new ResponseEntity<>(validateResponse,HttpStatus.OK);
+            }
+
+        }
+        }catch (Exception ignored){}
+        ValidateResponse response = new ValidateResponse(false,"NotValidated!");
+        return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
 
     }
 
