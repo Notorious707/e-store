@@ -12,6 +12,10 @@ public class OrderServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderServiceApplication.class, args);
     }
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Value("${account_service}")
     private String ACCOUNT_SERVICE_BASE_URL;
     @Value("${bank_account_service}")

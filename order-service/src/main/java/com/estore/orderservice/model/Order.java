@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @Table(name = "estore_orders")
 @NoArgsConstructor
+
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,15 @@ public class Order {
 
     @Transient
     private Double amount;
+
+    public Order(Long accountId, List<OrderItem> items, Address shippingAddress, OrderState status, PaymentType paymentType, Long paymentId, Payment payment, Double amount) {
+        this.accountId = accountId;
+        this.items = items;
+        this.shippingAddress = shippingAddress;
+        this.status = status;
+        this.paymentType = paymentType;
+        this.paymentId = paymentId;
+        this.payment = payment;
+        this.amount = amount;
+    }
 }

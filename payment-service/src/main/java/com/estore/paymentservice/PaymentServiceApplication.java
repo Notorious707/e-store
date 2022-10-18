@@ -13,6 +13,10 @@ public class PaymentServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PaymentServiceApplication.class, args);
 	}
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 	@Value("${account_service}")
 	private String ACCOUNT_SERVICE_BASE_URL;
 	@Value("${bank_account_service}")

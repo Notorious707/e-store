@@ -1,10 +1,16 @@
 package com.estore.orderservice.controller;
 
 import com.estore.orderservice.model.Order;
+import com.estore.orderservice.model.OrderRequest;
+import com.estore.orderservice.model.OrderResponse;
 import com.estore.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,28 +20,30 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public List<Order> findAll(){
-        return orderService.findAll();
+    public List<Order> findAll(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization, HttpServletResponse httpResponse) throws IOException {
+
+        return orderService.findAll(authorization,httpResponse) ;
     }
 
     @GetMapping("/{id}")
-    public Order findById(@PathVariable("id") Long id){
-        return orderService.findById(id);
+    public Order findById(@PathVariable("id") Long id, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization, HttpServletResponse httpServletResponse) throws IOException{
+        return orderService.findById(id,authorization, httpServletResponse);
     }
 
     @PutMapping("/{id}")
-    public Order update(@PathVariable("id") Long id,@RequestBody Order order){
-        return orderService.update(id,order);
+    public ResponseEntity<OrderResponse> update(@PathVariable("id") Long id,@RequestBody Order order, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
+        return orderService.update(id,order,authorization);
     };
 
     @PostMapping
-    public Order create(@RequestBody Order order){
-        return orderService.create(order);
+    public ResponseEntity<OrderResponse> create(@RequestBody OrderRequest orderRequest, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
+        return orderService.create(orderRequest,authorization);
     }
     @PostMapping("/set-payment-id/{id}/{paymentId}")
-    public Order setPaymentId(@PathVariable("id") Long id, @PathVariable("paymentId") Long paymentId){
-        Order order=orderService.findById(id);
-        order.setPaymentId(paymentId);
-        return orderService.create(order);
+    public ResponseEntity<OrderResponse> setPaymentId(@PathVariable("id") Long id, @PathVariable("paymentId") Long paymentId,@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setPaymentId(paymentId);
+
+        return orderService.setPaymentId(id,orderRequest,authorization);
     }
 }

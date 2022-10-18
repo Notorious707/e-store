@@ -2,6 +2,9 @@ package com.estore.accountservice.service;
 
 import com.estore.accountservice.exception.NotFoundException;
 import com.estore.accountservice.model.Account;
+import com.estore.accountservice.model.Address;
+import com.estore.accountservice.model.PaymentMethod;
+import com.estore.accountservice.model.ValidateResponse;
 import com.estore.accountservice.model.roles.ERole;
 import com.estore.accountservice.model.roles.Role;
 import com.estore.accountservice.payload.request.AccountSignInRequest;
@@ -11,7 +14,9 @@ import com.estore.accountservice.payload.response.MessageResponse;
 import com.estore.accountservice.repository.AccountRepository;
 import com.estore.accountservice.repository.RoleRepository;
 import com.estore.accountservice.security.jwt.JwtUtils;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -140,6 +145,25 @@ public class AccountService implements IAccountService{
                 userDetails.getId(),
                 userDetails.getEmail(),
                 roles));
+    }
+
+    @Override
+    public ResponseEntity<ValidateResponse> validate(String authorizationHeader) {
+        String token = null;
+
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer")){
+            token = authorizationHeader.substring(7);
+            try{
+            Claims claims = jwtUtils.getClaims(token);
+            if(claims!=null){
+                ValidateResponse validateResponse = new ValidateResponse(true,"Validated!");
+                return new ResponseEntity<>(validateResponse,HttpStatus.OK);
+            }
+            }catch(Exception ignored){}
+        }
+        ValidateResponse response = new ValidateResponse(false,"Not Validated!");
+        return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
+
     }
 
 

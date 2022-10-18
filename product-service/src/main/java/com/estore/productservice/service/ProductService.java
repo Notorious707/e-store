@@ -2,18 +2,21 @@ package com.estore.productservice.service;
 
 import com.estore.productservice.entity.Product;
 import com.estore.productservice.model.ProductDTO;
+import com.estore.productservice.model.ProductResponse;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getList();
+    List<Product> getList(String authHeader,HttpServletResponse httpServletResponse) throws IOException;
 
 
-    void save(ProductDTO productDTO);
+    ProductResponse save(ProductDTO productDTO, String authHeader, HttpServletResponse httpServletResponse) throws IOException;
 
-    Product get(Long id);
+    Product get(Long id,String authHeader, HttpServletResponse response) throws IOException;
 
-    void delete(Long id);
+    String delete(Long id,String authHeader, HttpServletResponse response) throws IOException;
 
-    void update(Long id, ProductDTO productDTO);
+    String update(Long id, ProductDTO productDTO, String authHeader,HttpServletResponse response) throws IOException;
 }

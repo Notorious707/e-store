@@ -52,5 +52,30 @@ public class JwtUtils {
         return false;
     }
 
+    public String getSubject(String token) {
+        try {
+            return Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+        } catch (Exception ignored) {
+
+        }
+        return null;
+    }
+
+    public Claims getClaims(String token) {
+        try {
+            return Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception ignored) {
+
+        }
+        return null;
+    }
+
 
 }

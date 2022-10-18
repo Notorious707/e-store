@@ -1,8 +1,9 @@
 package com.estore.bankaccountservice.service;
 
 import com.estore.bankaccountservice.model.BankAccountDTO;
+import com.estore.bankaccountservice.model.TransactionResponse;
 
 public interface BankAccountService {
 
-    String makePayment(BankAccountDTO bankAccountDTO);
+    TransactionResponse makePayment(BankAccountDTO bankAccountDTO, String authorizationHeader);
 }
