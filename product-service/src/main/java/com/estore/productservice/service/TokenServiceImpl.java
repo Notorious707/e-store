@@ -29,7 +29,7 @@ public class TokenServiceImpl implements TokenService {
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<ProductResponse> response = restTemplate.exchange(authSvcUrl + "/validate", HttpMethod.GET, requestEntity, ProductResponse.class);
+        ResponseEntity<ProductResponse> response = restTemplate.exchange(authSvcUrl + "/auth/validate", HttpMethod.GET, requestEntity, ProductResponse.class);
         return response.getBody();
     }
 

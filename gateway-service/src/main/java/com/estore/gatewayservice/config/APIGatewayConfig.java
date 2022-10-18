@@ -28,7 +28,7 @@ public class APIGatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder){
         return builder.routes()
-                .route("account-service",r->r.path("/accounts/**")
+                .route("account-service",r->r.path("/accounts/**","/auth/**")
                         .uri(account_service))
                 .route("bank-account-service",r->r.path("/bankaccount/**")
                         .uri(bank_account_service))
